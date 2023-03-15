@@ -8,8 +8,7 @@
 // import closeImage from "./cancel-button";
 
 const popup = document.createElement('div');
-// const closeButton = document.createElement('button');
-// popup.appendChild(closeButton);
+const command = "Summarize this"
 
 addEventListener("mouseup", async (e) => {
   const selectedText = document.getSelection().toString();
@@ -35,7 +34,7 @@ addEventListener("mouseup", async (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "text": selectedText
+        "text": `${command}: ${selectedText}`
       }),
   })
     const data = await response.json()
