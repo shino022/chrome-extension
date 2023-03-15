@@ -7,7 +7,7 @@
 */
 
 const popup = document.createElement('div');
-const command = "Summarize this"
+let command = "Summarize this"
 
 addEventListener("mouseup", async (e) => {
   const selectedText = document.getSelection().toString();
@@ -49,6 +49,10 @@ addEventListener("mouseup", async (e) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.q == "command") {
+    sendResponse({ command });
+  }
+  else if (request.q == "setCommand") {
+    command = request.command;
     sendResponse({ command });
   }
 });
