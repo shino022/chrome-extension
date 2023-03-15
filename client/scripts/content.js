@@ -5,7 +5,6 @@
     1. if the pop up is already in DOM and outside the popup is clicked -> close the popup
     2. if the pop up is not in DOM and some text is selected -> insert popup with the text
 */
-// import closeImage from "./cancel-button";
 
 const popup = document.createElement('div');
 const command = "Summarize this"
@@ -48,3 +47,8 @@ addEventListener("mouseup", async (e) => {
   }
 });
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.q == "command") {
+    sendResponse({ command });
+  }
+});
