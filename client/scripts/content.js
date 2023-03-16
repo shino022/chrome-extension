@@ -1,4 +1,3 @@
-
 /*Flow
 
   mouse up event:
@@ -6,14 +5,14 @@
     2. if the pop up is not in DOM and some text is selected -> insert popup with the text
 */
 
-const popup = document.createElement('div');
-let command = "Summarize this"
+const popup = document.createElement("div");
+let command = "Summarize this";
 
 addEventListener("mouseup", async (e) => {
   const selectedText = document.getSelection().toString();
 
   // if the pop up is clicked
-  if(e.target.closest("#extention-popup")) {
+  if (e.target.closest("#extention-popup")) {
     // do nothing
     return;
   }
@@ -33,16 +32,21 @@ addEventListener("mouseup", async (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "text": `${command}: ${selectedText}`
+        text: `${command}: ${selectedText}`,
       }),
-  })
-    const data = await response.json()
-    const summary = data.summary;
-    console.log(summary);
-    
+    });
+    const data = await response.json();
+    let output = "";
+    if (response.status == 400) {
+      output = data.error.message
+    }
+    else {
+      output = data.summary;
+    }
+
     // insert it
-    popup.setAttribute('id', 'extention-popup');
-    popup.textContent = summary;
+    popup.setAttribute("id", "extention-popup");
+    popup.textContent = output;
     document.body.appendChild(popup);
   }
 });
@@ -50,8 +54,7 @@ addEventListener("mouseup", async (e) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.q == "command") {
     sendResponse({ command });
-  }
-  else if (request.q == "setCommand") {
+  } else if (request.q == "setCommand") {
     command = request.command;
     sendResponse({ command });
   }

@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
     .then((response) => response.json())
     .then((data) => {
       if(data.error) {
-        return res.status(400).json(data.error)
+        return res.status(400).json(data)
       }
       res.json({summary: data.choices[0].message.content})
     })
