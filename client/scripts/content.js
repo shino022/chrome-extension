@@ -6,8 +6,14 @@
 */
 
 const popup = document.createElement("div");
+const text = document.createElement("p");
+const loader = document.createElement("div");
+
 let command = "Summarize this";
-let loading = false;
+
+loader.setAttribute("id", "extention-loading");
+popup.setAttribute("id", "extention-popup");
+
 addEventListener("mouseup", async (e) => {
   const selectedText = document.getSelection().toString();
 
@@ -28,11 +34,10 @@ addEventListener("mouseup", async (e) => {
     while (popup.firstChild) {
       popup.removeChild(popup.firstChild);
     }
-    const loader = document.createElement("div");
-    loader.setAttribute("id", "extention-loading");
-    popup.setAttribute("id", "extention-popup");
+
     popup.appendChild(loader);
     document.body.appendChild(popup);
+    
     // fetch summary
     const response = await fetch("http://localhost:3000/", {
       method: "POST",
@@ -54,7 +59,6 @@ addEventListener("mouseup", async (e) => {
   
     // insert it
     popup.removeChild(loader);
-    const text = document.createElement("p");
     text.textContent = output;
     popup.appendChild(text)
 
