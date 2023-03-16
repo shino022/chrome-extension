@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {
-  console.log(req.body.text);
-  console.log(req.body.text.split(' ').length);
+  const tokens = req.body.text.split(' ');
+  if(tokens.length > 2020) {
+    return res.status(400).json({error: {
+      message: "The selected text exceeds the maximum limit of 2000 words. Please select a shorter text and try again."
+    }})
+  }
   fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
