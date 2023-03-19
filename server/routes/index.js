@@ -1,6 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
+router.get("/", (req, res) => {
+  res.send("<h1>Server</h1>")
+})
+
 router.post("/", function (req, res, next) {
   const tokens = req.body.text.split(" ");
   if (tokens.length > 2020) {
