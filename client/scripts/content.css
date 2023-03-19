@@ -1,12 +1,14 @@
 #extention-popup {
   color: black;
-  background: yellow;
+  background: white;
+  box-shadow: grey 0px 0px 4px 0px;
 
-  display: block;
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 350px;
   max-height: 50vh;
 
   padding: 30px;
@@ -19,6 +21,20 @@
   line-height: 1.75;
   text-rendering: optimizeSpeed;
   z-index: 9999;
+}
+
+#extention-popup::-webkit-scrollbar{
+  width: 12px;
+}
+
+#extention-popup::-webkit-scrollbar-thumb{
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background: #c4c4c4;
+}
+
+#extention-popup::-webkit-scrollbar-track{
+  background: black;
 }
 
 #extention-loading {
