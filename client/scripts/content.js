@@ -39,7 +39,7 @@ addEventListener("mouseup", async (e) => {
     document.body.appendChild(popup);
     
     // fetch summary
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("https://100.25.4.202:4000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,6 +49,7 @@ addEventListener("mouseup", async (e) => {
       }),
     });
     const data = await response.json();
+    console.log(data);
     let output = "";
     if (response.status == 400) {
       output = data.error.message
