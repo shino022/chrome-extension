@@ -27,5 +27,5 @@ input[type=text]{
   
 input[type=text]:focus {
    outline: none;
-   border: 1px solid #2d9fd9;
+   box-shadow: 0 0 4px 0 #222b46;
 }
