@@ -34,7 +34,7 @@
 }
 
 #extention-popup::-webkit-scrollbar-track{
-  background: black;
+  background: #f1f1f1;
 }
 
 #extention-loading {
