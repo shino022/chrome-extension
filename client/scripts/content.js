@@ -39,7 +39,7 @@ addEventListener("mouseup", async (e) => {
     document.body.appendChild(popup);
     
     // fetch summary
-    const response = await fetch("https://100.25.4.202:4000/", {
+    const response = await fetch("https://2893571.xyz:4000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
