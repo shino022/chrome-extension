@@ -22,8 +22,8 @@ app.set('port', port);
 
 var server = http.createServer(
   {
-    key: fs.readFileSync("./key.pem"),
-    cert: fs.readFileSync("./cert.pem"),
+    key: fs.readFileSync("/etc/letsencrypt/live/2893571.xyz/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/2893571.xyz/fullchain.pem"),
   },app);
 
 /**
