@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var axios = require ('axios');
+var axios = require("axios");
 
 router.get("/", (req, res) => {
   res.send(`<h1>Privacy Policy of Highlighter</h1>\
@@ -60,8 +60,8 @@ router.get("/", (req, res) => {
   \
   <h2>Contact Us</h2>\
   \
-  <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>`)
-})
+  <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>`);
+});
 
 router.post("/", function (req, res, next) {
   const tokens = req.body.text.split(" ");
@@ -87,7 +87,7 @@ router.post("/", function (req, res, next) {
   })
     .then((response) => response.data)
     .then((data) => {
-      console.log(data);
+      console.log(`data${data}`);
 
       if (data.error) {
         return res.status(400).json(data);
@@ -95,7 +95,30 @@ router.post("/", function (req, res, next) {
       res.json({ summary: data.choices[0].message.content });
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`error: ${err.toJSON().status} ${err.status}`);
+      if (err.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+        if (err.response.status == "429") {
+          return res.status(500).json({ // temp solution, should return an error property later
+            summary:
+              "Oops, we apologize for the inconvenience.\nOur system has exceeded the rate limit for the ChatGPT API's free tier.\nWe are actively working to find a solution, and appreciate your patience in the meantime.",
+          }); //temp solution
+        }
+      } else if (err.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser
+        // and an instance of http.ClientRequest in node.js
+
+        console.log(err.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", err.message);
+      }
+
       return res.status(500).json(err);
     });
 });
